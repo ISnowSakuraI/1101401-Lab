@@ -1,0 +1,79 @@
+h1,
+h2,
+h3 {
+  font-family: "Playfair Display", serif;
+  font-weight: 100;
+  font-size: 1.7rem;
+}
+
+p {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
+}
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+}
+
+.container {
+  height: 100%;
+}
+
+.header,
+.menu,
+.content,
+.footer {
+  padding: 5px 10px;
+}
+
+.header {
+  background: url("./assets/header.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
+  height: 100%;
+}
+
+.wrapper {
+  display: flex;
+}
+
+.wrapper-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.icon {
+  text-align: center;
+}
+
+.item {
+  padding: 2%;
+}
+
+.contact {
+  background: url("./assets/contact.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 70%;
+}
+
+input[type="text"] {
+  background-color: transparent;
+  border-color: white;
+  border-width: 1px;
+  border-style: solid;
+  color: white;
+}
+
+input[type="submit"] {
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 16px 32px;
+  text-decoration: none;
+  cursor: pointer;
+}
