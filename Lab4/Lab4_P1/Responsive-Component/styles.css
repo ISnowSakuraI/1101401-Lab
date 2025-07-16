@@ -4,15 +4,6 @@
   box-sizing: border-box;
 }
 
-.sign-up {
-    height: 200px;
-    order: 1;
-}
-
-.content {
-    order: 2;
-}
-
 .content {
   background-color: #eaedf0;
   height: 600px;
@@ -85,5 +76,14 @@
   }
   .header {
     height: 400px;
+  }
+
+  .sign-up {
+    height: 200px;
+    order: 1;
+  }
+
+  .content {
+    order: 2;
   }
 }
