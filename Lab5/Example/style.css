@@ -114,7 +114,6 @@ html {
 
 .icon {
   text-align: center;
-  margin: 0 10px;
 }
 
 .product-card {
@@ -141,7 +140,7 @@ html {
 }
 
 .product-card h2 {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   margin: 10px 0 5px;
   transition: transform 0.2s ease-in-out, text-shadow 0.2s ease-in-out;
   display: inline-block;
@@ -154,9 +153,10 @@ html {
 }
 
 .product-card p {
-  margin: 0;
   font-size: 0.9rem;
+  margin: 0;
   color: #333;
+  margin-bottom: 20px;
 }
 
 .menu {
@@ -182,4 +182,11 @@ html {
 
 .zoom:hover {
   transform: scale(1.2);
+}
+
+.product {
+  display: flex; /* ทำให้ children (icon) เรียงกันในแนวนอน */
+  justify-content: center; /* จัดให้ icon อยู่ตรงกลาง (ถ้ามีพื้นที่เหลือ) */
+  align-items: flex-start; /* จัดให้ icon ด้านบนสุดเท่ากัน */
+  flex-wrap: wrap; /* ให้ product cards ขึ้นบรรทัดใหม่เมื่อหน้าจอเล็ก */
 }
