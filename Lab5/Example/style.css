@@ -41,6 +41,7 @@ html {
 
 .container {
   height: 100%;
+  transform-style: preserve-3d;
 }
 
 .header,
@@ -185,8 +186,8 @@ html {
 }
 
 .product {
-  display: flex; /* ทำให้ children (icon) เรียงกันในแนวนอน */
-  justify-content: center; /* จัดให้ icon อยู่ตรงกลาง (ถ้ามีพื้นที่เหลือ) */
-  align-items: flex-start; /* จัดให้ icon ด้านบนสุดเท่ากัน */
-  flex-wrap: wrap; /* ให้ product cards ขึ้นบรรทัดใหม่เมื่อหน้าจอเล็ก */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
