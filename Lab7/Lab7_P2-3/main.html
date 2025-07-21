@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Web UI - JS Form</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gBqQkNHr_b/4.5.0/css/bootstrap.min.css"
+      crossorigin="anonymous"
+    />
+    <style>
+      #password_character_count,
+      #message {
+        font-size: 0.875em;
+        margin-top: 0.25rem;
+        margin-bottom: 0.5rem;
+        padding-left: 0.25rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="mt-4 mb-4">
+        <form class="form" role="form" action="#" method="post">
+          <fieldset>
+            <legend>Register</legend>
+
+            <div class="form-group">
+              <label for="register_email">Email (*)</label>
+              <input
+                type="email"
+                class="form-control"
+                id="register_email"
+                name="register_email"
+                placeholder="Email"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="register_password">Password (*)</label>
+              <input
+                type="password"
+                class="form-control"
+                id="register_password"
+                name="register_password"
+                placeholder="Minimum 8 characters"
+                required
+                onkeyup="validateForm();"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="register_confirm_password"
+                >Confirm Password (*)</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="register_confirm_password"
+                name="register_confirm_password"
+                placeholder="Confirm Password"
+                required
+                disabled
+                onkeyup="validateForm();"
+              />
+              <small id="password_character_count" class="form-text text-dark"
+                >Use 8 or more characters</small
+              >
+
+              <small id="message" class="form-text text-dark">Matched</small>
+            </div>
+          </fieldset>
+
+          <hr />
+
+          <div class="form-group form-check">
+            <input
+              type="checkbox"
+              id="register_agree_to_terms"
+              name="register_agree_to_terms"
+              class="form-check-input"
+              disabled
+              onchange="validateForm();"
+            />
+            <label class="form-check-label" for="register_agree_to_terms">
+              I agree to the
+              <a
+                href="#"
+                title="Term of Use"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Terms of Use</a
+              >,
+              <a
+                href="#"
+                title="Privacy Policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Privacy Policy</a
+              >, and
+              <a
+                href="#"
+                title="Cookie Policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Cookie Policy</a
+              >.
+            </label>
+          </div>
+          <div class="mb-3">
+            By checking this checkbox and signing up, you agree to the
+            <a
+              href="#"
+              title="Term of Use"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Terms of Use</a
+            >,
+            <a
+              href="#"
+              title="Privacy Policy"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Privacy Policy</a
+            >, and a
+            <a
+              href="#"
+              title="Cookie Policy"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Cookie Policy</a
+            >.
+          </div>
+
+          <button
+            type="submit"
+            name="submit"
+            id="signup_button"
+            class="btn btn-primary"
+            disabled
+          >
+            Sign Up
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      function validateForm() {
+        var passwordInput = document.getElementById("register_password");
+        var confirmPasswordInput = document.getElementById(
+          "register_confirm_password"
+        );
+        var passwordCharacterCountElement = document.getElementById(
+          "password_character_count"
+        );
+        var messageElement = document.getElementById("message");
+        var agreeToTermsCheckbox = document.getElementById(
+          "register_agree_to_terms"
+        );
+        var signupButton = document.getElementById("signup_button");
+
+        var password = passwordInput.value;
+        var confirmPassword = confirmPasswordInput.value;
+
+        if (password.length > 0 && password.length < 8) {
+          passwordCharacterCountElement.classList.remove(
+            "text-success",
+            "text-dark"
+          );
+          passwordCharacterCountElement.classList.add("text-danger");
+        } else if (password.length >= 8) {
+          passwordCharacterCountElement.classList.remove(
+            "text-danger",
+            "text-dark"
+          );
+          passwordCharacterCountElement.classList.add("text-success");
+        } else {
+          passwordCharacterCountElement.classList.remove(
+            "text-success",
+            "text-danger"
+          );
+          passwordCharacterCountElement.classList.add("text-dark");
+        }
+
+        if (password.length >= 8) {
+          confirmPasswordInput.disabled = false;
+        } else {
+          confirmPasswordInput.disabled = true;
+          confirmPasswordInput.value = "";
+          agreeToTermsCheckbox.disabled = true;
+          agreeToTermsCheckbox.checked = false;
+        }
+
+        if (!confirmPasswordInput.disabled && password.length >= 8) {
+          if (password === confirmPassword && confirmPassword !== "") {
+            messageElement.classList.remove("text-dark");
+            messageElement.classList.add("text-success");
+            messageElement.textContent = "Matched";
+            agreeToTermsCheckbox.disabled = false;
+          } else {
+            messageElement.classList.remove("text-success");
+            messageElement.classList.add("text-dark");
+            messageElement.textContent = "Matched";
+            agreeToTermsCheckbox.disabled = true;
+            agreeToTermsCheckbox.checked = false;
+          }
+        } else {
+          messageElement.classList.remove("text-success");
+          messageElement.classList.add("text-dark");
+          messageElement.textContent = "Matched";
+          agreeToTermsCheckbox.disabled = true;
+          agreeToTermsCheckbox.checked = false;
+        }
+        if (
+          password.length >= 8 &&
+          password === confirmPassword &&
+          agreeToTermsCheckbox.checked
+        ) {
+          signupButton.disabled = false;
+        } else {
+          signupButton.disabled = true;
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", validateForm);
+    </script>
+  </body>
+</html>
