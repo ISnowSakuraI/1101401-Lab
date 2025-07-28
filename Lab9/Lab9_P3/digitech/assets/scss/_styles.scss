@@ -1,0 +1,189 @@
+// assets/scss/_styles.scss
+// Make sure these two lines are at the very top of _styles.scss
+@use "variables";
+@use "mixin";
+
+/* ========================== banner ========================== */
+.banner_container {
+    text-align: center;
+}
+
+.banner {
+    background-image: url("../images/cover-1900x542.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 27rem;
+    padding: 17rem 0 2rem;
+}
+
+.b {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    margin-top: -27rem;
+    width: 100%;
+    height: 27rem;
+}
+
+.banner_content {
+    font-family: variables.$sutfont;
+    color: variables.$white;
+}
+
+.text-head {
+    font-size: 4rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.text-contentm {
+    font-size: 1.8rem;
+    line-height: 2rem;
+    margin: 0;
+    margin-top: 3vw;
+}
+
+/* ========================== banner ========================== */
+/* ========================= content ========================== */
+.occup-grid {
+    @include mixin.grid-default(60%, 1fr); // Make sure 'mixin.' is there
+}
+
+.highlight-grid {
+    @include mixin.grid-default(1fr, 60%); // Make sure 'mixin.' is there
+}
+
+.header_content {
+    font-family: variables.$sutfont;
+    width: fit-content;
+    height: auto;
+    margin: 0 0 3vh;
+    padding: 0.7vh 0;
+    text-align: center;
+    color: variables.$white;
+    background: linear-gradient(90deg,
+            variables.$red_grad1,
+            variables.$red_grad2,
+            variables.$red_grad3,
+            variables.$red_grad4,
+            variables.$red_grad5);
+    @include mixin.border-radius(3vh); // Make sure 'mixin.' is there
+    @include mixin.box-shadow(2px, 8px, 14px, 0px, rgba(62, 75, 73, 0.25)); // Make sure 'mixin.' is there
+
+    h3 {
+        font-size: 1.3rem;
+        margin: 0 0.5rem;
+    }
+}
+
+.box1 {
+    @include mixin.box-default(0px, 10px, 10px, 0px); // Make sure 'mixin.' is there
+}
+
+.box2 {
+    @include mixin.box-default(10px, 0px, 0px, 10px); // Make sure 'mixin.' is there
+}
+
+.flex-row {
+    font-family: variables.$sutfont;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 3rem 0rem 8rem;
+
+    div {
+        width: 30%;
+        margin: 2rem 1rem;
+        padding: 0 1.5rem;
+        text-align: center;
+    }
+
+    img {
+        width: 60%;
+        @include mixin.border-radius(50%);
+        @include mixin.box-shadow(4px, 8px, 12px, 7px, hsla(171, 9%, 27%, 0.25));
+
+        &:hover {
+            @include mixin.transition(0.7s);
+            @include mixin.transform(rotate(360deg));
+        }
+    }
+
+    h3 {
+        font-size: 1.25rem;
+        color: variables.$white;
+        margin: 0.5rem;
+    }
+
+    p {
+        font-size: 1.1rem;
+        line-height: 1.6rem;
+        color: variables.$white;
+        margin: 0.5rem 0;
+    }
+
+    a {
+        font-size: 1.1rem;
+        color: variables.$white;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        background: linear-gradient(90deg,
+                variables.$red_grad1,
+                variables.$red_grad2,
+                variables.$red_grad3,
+                variables.$red_grad4,
+                variables.$red_grad5);
+        @include mixin.border-radius(6px);
+    }
+}
+
+/* ========================= content ========================== */
+/* ========================== footer ========================== */
+footer {
+    width: 100%;
+    height: auto;
+    background: #1f1f1f;
+}
+
+.footer_grid {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.contact_us {
+    font-family: variables.$sutfont;
+    color: variables.$white;
+    text-align: left;
+    padding: 6rem 0 4rem 0;
+    margin-left: 10rem;
+
+    h2 {
+        margin-bottom: 15px;
+    }
+
+    h3 {
+        line-height: 1.5rem;
+
+        a {
+            text-decoration: none;
+            color: variables.$white;
+        }
+    }
+
+    p {
+        font-size: 1.3rem;
+        font-weight: lighter;
+        margin-bottom: 15px;
+        line-height: 1.5rem;
+    }
+}
+
+.facebookpage {
+    padding: 1rem;
+    justify-self: center;
+}
+
+/* =============x============= footer ============x============== */

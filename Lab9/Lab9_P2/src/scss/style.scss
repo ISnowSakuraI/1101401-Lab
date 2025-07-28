@@ -1,0 +1,100 @@
+/* src/scss/style.scss */
+@use "sass:color"; // Add this line at the very top
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+// ... (rest of your SCSS code) ...
+
+.navigation {
+    background-color: color.adjust(#2c3e50, $lightness: -10%); // Changed here
+    padding: 10px 0;
+    text-align: center;
+    border: 1px solid black;
+    margin-bottom: 10px;
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    li a {
+        color: white;
+        text-decoration: none;
+        padding: 5px 10px;
+
+        &:hover {
+            background-color: color.adjust(#2c3e50, $lightness: 10%); // Changed here for lighten effect
+            border-radius: 4px;
+        }
+    }
+}
+
+.page-content {
+    background-color: white;
+    padding: 20px;
+    margin: 0 10px 10px;
+    border: 1px solid black;
+    min-height: 200px;
+    /* Just to make it visible */
+}
+
+.content-columns-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 10px;
+    margin-bottom: 10px;
+
+    .column {
+        flex: 1;
+        min-width: 280px;
+        background-color: #ecf0f1;
+        padding: 15px;
+        border: 1px solid black;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        h3 {
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+
+.footer {
+    background-color: #7f8c8d;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid black;
+    margin-top: 10px;
+}
+
+/* Basic Responsiveness (Optional, but good practice) */
+@media (max-width: 768px) {
+    .navigation ul {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .page-content {
+        margin: 0 5px 5px;
+        padding: 15px;
+    }
+
+    .content-columns-wrapper {
+        flex-direction: column;
+    }
+}

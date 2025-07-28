@@ -1,0 +1,36 @@
+@use "_variables";
+
+@font-face {
+    font-family: "sutregular";
+    src: url("../fonts/sut_regular_ver_1.00-webfont.eot");
+    src: url("../fonts/sut_regular_ver_1.00-webfont.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/sut_regular_ver_1.00-webfont.woff2") format("woff2"),
+        url("../fonts/sut_regular_ver_1.00-webfont.woff") format("woff"),
+        url("../fonts/sut_regular_ver_1.00-webfont.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    unicode-range: U+0E00 –U + 0e7f;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(9deg,
+            variables.$blue1,
+            variables.$blue2,
+            variables.$blue3,
+            variables.$blue4,
+            variables.$blue5,
+            variables.$blue6);
+}
+
+.container {
+    max-width: 1920px;
+    width: 100%;
+    margin: 0 auto;
+}

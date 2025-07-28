@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.sidenav {
+  height: 100%;
+  width: 0; /* เริ่มต้นเมนูปิดอยู่ */
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
+</head>
+<body>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn">&times;</a>
+  <a href="#">เกี่ยวกับโครงการ</a>
+  <a href="#">หลักสูตรที่เปิดสอน</a>
+  <a href="#">การรับสมัคร</a>
+  <a href="#">ทุนการศึกษา</a>
+  <a href="#">ติดต่อสื่อสาร</a>
+</div>
+
+<h2>เปิด/ปิด เมนู</h2>
+<p>กดปุ่ม "เปิด" เพื่อแสดงเมนู</p>
+<button id="toggleMenu">&#9776; เปิด</button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+  // ฟังก์ชันสำหรับเปิดเมนู
+  function openNav() {
+    $("#mySidenav").css("width", "250px");
+  }
+
+  // ฟังก์ชันสำหรับปิดเมนู
+  function closeNav() {
+    $("#mySidenav").css("width", "0");
+  }
+
+  // กำหนด event listener สำหรับปุ่ม "เปิด"
+  $("#toggleMenu").on("click", function() {
+    openNav();
+  });
+
+  // กำหนด event listener สำหรับปุ่ม "x" (ปิด)
+  $(".closebtn").on("click", function() {
+    closeNav();
+  });
+});
+</script>
+
+</body>
+</html>
