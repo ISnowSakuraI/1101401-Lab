@@ -13,6 +13,7 @@
         width: 100%;
         height: 52px;
       }
+
       .section-block {
         display: block;
         border-bottom: 1px solid rgba(0, 0, 0, 0.16);
@@ -21,15 +22,25 @@
         width: 100%;
         min-height: 100vh;
       }
+      #video_wrapper {
+        height: 50vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
       #car_video_container {
         display: block;
         margin: 60px auto;
         width: 1100px;
         text-align: center;
       }
+
       #car_video {
         margin: 0 auto;
       }
+
       #landing_video,
       .landing_page_content {
         display: block;
@@ -37,6 +48,7 @@
         width: 480px;
         text-align: center;
       }
+
       .developer-panel {
         background: #383737;
         color: #00fd61;
@@ -55,16 +67,17 @@
       crossorigin="anonymous"
     />
   </head>
+
   <body>
     <header id="page_header" class="page-header">
       <div class="container">
-        <h1>iPhone 101</h1>
+        <h1>iPhone 106</h1>
       </div>
     </header>
     <div class="container">
       <section class="section-block">
         <video id="landing_video" width="480" autoplay loop muted>
-          <source src="public/large.mp4" type="video/mp4" />
+          <source src="public/xlarge.mp4" type="video/mp4" />
           เสียใจจัง เว็บเบราว์เซอร์คุณไม่ รองรับ HTML5 Video Tag
         </video>
         <div class="landing_page_content">
@@ -84,13 +97,10 @@
         <header>
           <h2>เอาล่ะ เรามาย่อวีดิโอกัน</h2>
         </header>
-        <div>
-          <figure id="car_video_container">
-            <video id="car_video" width="1100" autoplay loop muted>
-              <source
-                src="public/c388898d-dce7-4b62-b3f5-ae5f7cc981c6.mp4"
-                type="video/mp4"
-              />
+        <div id="video_wrapper">
+          <figure id="car_video_container" style="position: absolute">
+            <video id="car_video" width="1100" loop autoplay muted>
+              <source src="public/dxlarge_2x.mp4" type="video/mp4" />
               เสียใจจัง เว็บเบราว์เซอร์คุณไม่รองรับ HTML5 Video Tag
             </video>
           </figure>
@@ -125,102 +135,148 @@
         </section>
       </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-      // ทำโค้ดนี้ให้สมบูรณ์
       $(document).ready(function () {
-        // อ้างอิงถึง element ที่จำเป็น
         const $pageHeader = $("#page_header");
         const $triggerSection = $("#trigger");
         const $carVideo = $("#car_video");
+        const $videoWrapper = $("#video_wrapper");
         const $windowTop = $("#window_top");
         const $windowLeft = $("#window_left");
         const $triggerTop = $("#trigger_top");
         const $triggerHeight = $("#trigger_height");
         const $topReach = $("#top_reach");
 
-        // กำหนดค่าเริ่มต้นของวิดีโอ
-        const initialVideoWidth = $carVideo.width();
-        const initialVideoHeight = $carVideo.height();
-        const minVideoWidth = 480; // กำหนดขนาดวิดีโอที่เล็กลงได้
-        const minVideoHeight =
-          (minVideoWidth / initialVideoWidth) * initialVideoHeight; // คำนวณความสูงตามสัดส่วน
+        let initialVideoWidth;
+        let initialVideoHeight;
+        const minVideoWidth = 480;
+        let minVideoHeight;
 
-        // ฟังก์ชันอัปเดตข้อมูลใน developer panel
+        const scrubbingDuration = window.innerHeight * 2;
+        $triggerSection.css(
+          "height",
+          scrubbingDuration + window.innerHeight * 1
+        );
+        function setInitialVideoDimensions() {
+          $carVideo.css({
+            width: "",
+            height: "",
+            position: "absolute",
+          });
+
+          initialVideoWidth = $carVideo.width();
+          initialVideoHeight = $carVideo.height();
+          minVideoHeight =
+            (minVideoWidth / initialVideoWidth) * initialVideoHeight;
+
+          if (isNaN(minVideoHeight) || minVideoHeight <= 0) {
+            minVideoHeight = initialVideoHeight * 0.5;
+          }
+          adjustVideoSizeAndPosition();
+        }
+
         function updateDeveloperPanel() {
-          const pageHeaderPosition = $pageHeader.position();
-          const triggerPosition = $triggerSection.position();
+          const pageHeaderPosition = $pageHeader.length
+            ? $pageHeader.position()
+            : { top: 0, left: 0 };
+          const triggerPosition = $triggerSection.offset();
 
-          $windowTop.text(pageHeaderPosition.top);
-          $windowLeft.text(pageHeaderPosition.left);
-          $triggerTop.text(triggerPosition.top);
-          $triggerHeight.text($triggerSection.height());
+          if ($windowTop.length)
+            $windowTop.text(pageHeaderPosition.top.toFixed(2));
+          if ($windowLeft.length)
+            $windowLeft.text(pageHeaderPosition.left.toFixed(2));
+          if ($triggerTop.length)
+            $triggerTop.text(triggerPosition.top.toFixed(2));
+          if ($triggerHeight.length)
+            $triggerHeight.text($triggerSection.height().toFixed(2));
 
-          // คำนวณตำแหน่งปัจจุบันเมื่อเทียบกับส่วน #trigger
           const scrollTop = $(window).scrollTop();
-          const triggerOffsetTop = triggerPosition.top;
-          const triggerSectionHeight = $triggerSection.height();
+          const triggerOffsetTop = $triggerSection.offset().top;
 
           let currentPositionInTrigger = scrollTop - triggerOffsetTop;
           if (currentPositionInTrigger < 0) {
             currentPositionInTrigger = 0;
-          } else if (currentPositionInTrigger > triggerSectionHeight) {
-            currentPositionInTrigger = triggerSectionHeight;
+          } else if (currentPositionInTrigger > $triggerSection.height()) {
+            currentPositionInTrigger = $triggerSection.height();
           }
-          $topReach.text(currentPositionInTrigger.toFixed(2)); // แสดงผลเป็นทศนิยม 2 ตำแหน่ง
+          if ($topReach.length)
+            $topReach.text(currentPositionInTrigger.toFixed(2));
         }
 
-        // ฟังก์ชันปรับขนาดวิดีโอเมื่อ scroll
-        function adjustVideoSize() {
+        function adjustVideoSizeAndPosition() {
           const scrollTop = $(window).scrollTop();
           const triggerOffsetTop = $triggerSection.offset().top;
-          const triggerSectionHeight = $triggerSection.height();
+          const windowHeight = $(window).height();
 
-          // ตรวจสอบว่าอยู่ภายในช่วงของ #trigger หรือไม่
-          if (
-            scrollTop > triggerOffsetTop &&
-            scrollTop < triggerOffsetTop + triggerSectionHeight
-          ) {
-            // คำนวณความคืบหน้าในการเลื่อนภายในส่วน #trigger (0 ถึง 1)
+          const startScrubbing = triggerOffsetTop;
+          const endScrubbing = triggerOffsetTop + scrubbingDuration;
+
+          if (scrollTop < startScrubbing) {
+            $carVideo.css({
+              width: initialVideoWidth + "px",
+              height: initialVideoHeight + "px",
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            });
+            $videoWrapper.css({
+              position: "relative",
+              top: "0",
+              width: "100%",
+              height: "100vh",
+            });
+          } else if (scrollTop >= startScrubbing && scrollTop < endScrubbing) {
             const scrollProgress =
-              (scrollTop - triggerOffsetTop) / triggerSectionHeight;
+              (scrollTop - startScrubbing) / scrubbingDuration;
+            const easedProgress = 0.5 - Math.cos(scrollProgress * Math.PI) / 2;
 
-            // คำนวณขนาดวิดีโอใหม่แบบเส้นตรง
             const newWidth =
               initialVideoWidth -
-              (initialVideoWidth - minVideoWidth) * scrollProgress;
+              (initialVideoWidth - minVideoWidth) * easedProgress;
             const newHeight =
               initialVideoHeight -
-              (initialVideoHeight - minVideoHeight) * scrollProgress;
+              (initialVideoHeight - minVideoHeight) * easedProgress;
 
-            // Set ค่าขนาดใหม่ให้กับวิดีโอ
-            $carVideo.width(newWidth);
-            $carVideo.height(newHeight);
-          } else if (scrollTop <= triggerOffsetTop) {
-            // ถ้าเลื่อนกลับไปอยู่ด้านบนของ #trigger ให้กลับไปขนาดเดิม
-            $carVideo.width(initialVideoWidth);
-            $carVideo.height(initialVideoHeight);
+            $carVideo.css({
+              width: newWidth + "px",
+              height: newHeight + "px",
+              position: "fixed",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            });
           } else {
-            // ถ้าเลื่อนเลย #trigger ไปแล้ว ให้เป็นขนาดเล็กสุด
-            $carVideo.width(minVideoWidth);
-            $carVideo.height(minVideoHeight);
+            $carVideo.css({
+              width: minVideoWidth + "px",
+              height: minVideoHeight + "px",
+              position: "absolute",
+              top: "0",
+              left: "50%",
+              transform: "translateX(-50%)",
+            });
+            const distanceFromEnd = scrollTop - endScrubbing;
+            const wrapperTop = Math.max(0, distanceFromEnd);
+
+            $videoWrapper.css({
+              position: "relative",
+              top: wrapperTop + "px",
+              width: "100%",
+              height: "100vh",
+            });
           }
         }
+        setInitialVideoDimensions();
+        updateDeveloperPanel();
 
-        // เมื่อโหลดหน้าเว็บเสร็จ
-        updateDeveloperPanel(); // อัปเดตข้อมูลครั้งแรก
-        adjustVideoSize(); // ปรับขนาดวิดีโอครั้งแรก
-
-        // Event .scroll()
         $(window).scroll(function () {
           updateDeveloperPanel();
-          adjustVideoSize();
+          adjustVideoSizeAndPosition();
         });
-
-        // Event .resize() ในกรณีที่ขนาดหน้าจอเปลี่ยน (เช่น หมุนหน้าจอมือถือ)
         $(window).resize(function () {
+          setInitialVideoDimensions();
           updateDeveloperPanel();
-          adjustVideoSize();
         });
       });
     </script>
